@@ -107,6 +107,55 @@ class LinkedList:
                 
         print("Node not found!")
 
+    def add_before(self, to_find, new_node):
+        if self.head is None:
+            raise Exception("List is empty")
+            
+        if self.head.data == to_find:
+            return self.add_first(new_node)
+            
+        prev_noded = self.head
+        
+        for node in self:
+            if node.data == to_find:
+                prev_node.next = new_node
+                new_node.next = node
+                return
+            
+            prev_node = node
+        
+        raise Exception("Node with data '%s' not found" % to_find)
+        
+    # my own attempt at deleting a node
+    def delete_node(self, to_delete):
+        if self.head is None:
+            raise Exception("List is empty!")
+            
+        # this won't find the first element in a list    
+        for node in self:
+            if node.next is not None and node.next.data == to_delete:
+                node.next = node.next.next
+                return
+                
+        raise Exception("Couldn't find '%s'!" % to_delete)   
+
+    def remove_node(self, to_find):
+        if self.head is None:
+            raise Exception("List is empty")
+            
+        if self.head.data == to_find:
+            self.head = self.head.next
+            return
+            
+        prev_node = self.head
+        for node in self:
+            if node.data == to_find:
+                prev_node.next = node.next
+                return
+            prev_node = node
+            
+        raise Exception("Node with data '%s' not found" % to_find)
+
 ## Main
 
 llist = LinkedList()
@@ -136,31 +185,13 @@ llist.add_after("4", Node("4.5"))
 
 llist.insert_before(Node("0.5"), "1")
 
+llist.add_before("2", Node("1.5"))
+
+llist.delete_node("-1")
+
+llist.remove_node("-2")
+
+print(llist.__repr__())
+
 for node in llist:
     print(node)
-
-## My own attempt
-# def node(x):
-    # content = x 
-    # nextNode = Null
-    # return content, nextNode
-    
-# def search(x):
-    # idx = 0
-    # tempNode = node(-1) #todo: change this to not be -1 (head node)
-    # while temp.content != x:
-        # idx += 1
-        # tempNode = tempNode.nextNode
-        
-        # if tempNode.nextNode == Null:
-            # return -1
-    # return idx
-    
-# def delete(idx):
-    # temp = 0
-    # tempNode = node(-1) #todo: change this to not be -1 (head node)
-    
-    # while temp < idx:
-        # temp += 1
-        # tempNode = tempNode.nextNode
-    # tempNode.nextNode = tempNode.nextNode.nextNode
