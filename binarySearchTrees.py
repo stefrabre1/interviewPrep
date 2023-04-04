@@ -14,7 +14,6 @@ class binarySearchTree:
     def insert(self, node):
         # empty tree
         if self.top is None:
-            print("Yeah")
             self.top = node
             return
         
@@ -41,11 +40,33 @@ class binarySearchTree:
                 temp.right = node
                 node.parent = temp
                 return
-                
+    
+    def __repr__(self):
+        toReturn = []
+        temp = self.top
+        toReturn.append(temp.data)
+
+        while temp.left is not None and temp.right is not None:
+            while temp.left is not None:
+                temp = temp.left
+                toReturn.append(temp.data)
+         
+            temp = self.top
+         
+            while temp.right is not None:
+                temp = temp.right
+                toReturn.append(temp.data)
+            
+        return toReturn
 ## main 
 
 bst = binarySearchTree()
 bst.insert(Node(5))
 bst.insert(Node(3))
+bst.insert(Node(4))
 bst.insert(Node(7))
+bst.insert(Node(1))
+bst.insert(Node(9))
 
+
+print(bst.__repr__())
