@@ -67,10 +67,3 @@ def findGivenSum2(arr2, n):
     
 print("New find given!")
 print(findGivenSum2(arr2, n))
-
-# if 4 numbers == 45, then / 5 == 9
-
-# if all elements are + 9 then: [-9, 1, 2, 0, 6, 9] = [0, 10, 11, 9, 15, 18]
-
-# edge cases: 
-# [-9, 3, 15] doesn't work

@@ -3,7 +3,6 @@
 class Node:
     def __init__(self, data):
         self.data = data
-        self.parent = None
         self.left = None
         self.right = None
         
@@ -11,55 +10,37 @@ class binarySearchTree:
     def __init__(self):
         self.top = None
         
+    def getTop(self):
+        return self.top
+        
     def insert(self, node):
-        # empty tree
         if self.top is None:
             self.top = node
-            return
-        
-        temp = self.top
-        
-        while True: # lol
-            if temp.data == node.data:
-                raise Exception("Duplicate data found!")
-
-            # left child 
-            while temp.left is not None and node.data < temp.data:
-                temp = temp.left
-                
-            # right child
-            while temp.right is not None and node.data > temp.data:
-                temp = temp.left
-                
-            # insertion
-            if node.data < temp.data:
-                temp.left = node
-                node.parent = temp
-                return
-            elif node.data > temp.data:
-                temp.right = node
-                node.parent = temp
-                return
-    
-    def __repr__(self):
-        toReturn = []
-        temp = self.top
-        toReturn.append(temp.data)
-
-        while temp.left is not None and temp.right is not None:
-            while temp.left is not None:
-                temp = temp.left
-                toReturn.append(temp.data)
-         
-            temp = self.top
-         
-            while temp.right is not None:
-                temp = temp.right
-                toReturn.append(temp.data)
+        else:
+            self.rInsert(node)
             
-        return toReturn
+    def rInsert(self, node):
+        tempNode = self.top
+        if node.data < tempNode.data:
+            if node.left is not None:
+                self.rInsert(node.left)
+            else:
+                print("is left happening?")
+                node.left = node
+        elif node.data > tempNode.data:
+            if node.right is not None:
+                self.rInsert(node.right)
+            else:
+                node.right = node
+    
+    def printTree(self, node):
+        if node is not None:
+            self.printTree(node.left)
+            print(str(node.data) + ' ')
+            self.printTree(node.right)
+       
 ## main 
-
+#TODO This isn't working. Work on it more
 bst = binarySearchTree()
 bst.insert(Node(5))
 bst.insert(Node(3))
@@ -68,5 +49,6 @@ bst.insert(Node(7))
 bst.insert(Node(1))
 bst.insert(Node(9))
 
+bst.printTree(bst.getTop())
 
-print(bst.__repr__())
+# print(bst.__repr__())
