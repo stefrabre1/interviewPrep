@@ -37,7 +37,7 @@ def findGivenSum(arr, n):
                 break
     return indices
     
-arr = [-9, 1, 2, 0, 6, 0, 0, 0, 5, 4, 9, 2, 1, 8, -1, 2, 2, 2, 2, 1]
+arr = [0, 1, 2, 0, 6, 0, 0, 0, 5, 4, 9, 2, 1, 8, -1, 2, 2, 2, 2, 1]
 # the -9 at index 0 renders this algorithm innacurate
 n = 9
 
@@ -47,25 +47,30 @@ print(findGivenSum(arr, n))
 # try again
 # Given an array of integers, find the subarrays which add up to a given number
 
-def findGivenSum2(arr, n):
+arr2 = [-9, 3, 15, 0, 6, 0, 0, 0, 5, 4, 9, 2, 1, 8, 10, -1, 2, 2, 2, 2, 1]
+
+def findGivenSum2(arr2, n):
     indices = []
-    toAdd = -1*min(arr)
-    print("toAdd: " + str(toAdd))
-    newN = n + 4*toAdd  #TODO: try to improve this somehow, the newN needs to be equal to the length of the correct subarray time toAdd
-    print("newN: " + str(newN))
+    toAdd = -1*min(arr2)
+    print("Min of arr2: " + str(toAdd))
     
-    for i in range(len(arr)):
+    for i in range(len(arr2)):
         sum = 0
-        for j in range(len(arr) - i):
-            if j == 0 and arr[i + j] + toAdd == 0: 
-                break
-            sum += (arr[i + j] + toAdd)
-            if sum == newN:
-                indices.append((i, j+1))
-                break
-            if sum > newN:
+        for j in range(len(arr2) - i):
+            sum += (arr2[i + j] + toAdd)
+            if i + j == 13 or i+j == 14:
+                print("Sum is: " + str(sum))
+            if sum - (j + 1) * toAdd == n:
+                indices.append((i, j + 1))
                 break
     return indices
     
 print("New find given!")
-print(findGivenSum2(arr, n))
+print(findGivenSum2(arr2, n))
+
+# if 4 numbers == 45, then / 5 == 9
+
+# if all elements are + 9 then: [-9, 1, 2, 0, 6, 9] = [0, 10, 11, 9, 15, 18]
+
+# edge cases: 
+# [-9, 3, 15] doesn't work
