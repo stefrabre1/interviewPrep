@@ -1,5 +1,8 @@
 # BST practice
 
+import sys
+sys.setrecursionlimit(1500)
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -43,15 +46,18 @@ class binarySearchTree:
        
     def findInTree(self, val):
         if self.top is not None:
-            return rFindInTree(self.top, val)
+            if self.rFindInTree(self.top, val) is not None:
+                return True
+            return False
     
     def rFindInTree(self, rNode, val):
         if rNode.data == val:
-            return true
-        self.rFindInTree(rNode.left, val)
-        self.rFindInTree(rNode.right, val)
+            return rNode
+        elif rNode.data > val and rNode.left is not None:
+            return self.rFindInTree(rNode.left, val)
+        elif rNode.data < val and rNode.right is not None:
+            return self.rFindInTree(rNode.right, val)
 
-        return false
        
 ## main 
 #TODO This isn't working. Work on it more
