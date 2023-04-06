@@ -17,27 +17,41 @@ class binarySearchTree:
         if self.top is None:
             self.top = node
         else:
-            self.rInsert(node)
+            self.rInsert(self.top, node)
             
-    def rInsert(self, node):
-        tempNode = self.top
-        if node.data < tempNode.data:
-            if node.left is not None:
-                self.rInsert(node.left)
+    def rInsert(self, rNode, nodeToAdd):
+        if nodeToAdd.data < rNode.data:
+            if rNode.left is not None:
+                self.rInsert(rNode.left, nodeToAdd)
             else:
-                print("is left happening?")
-                node.left = node
-        elif node.data > tempNode.data:
-            if node.right is not None:
-                self.rInsert(node.right)
+                rNode.left = nodeToAdd
+        elif nodeToAdd.data > rNode.data:
+            if rNode.right is not None:
+                self.rInsert(rNode.right, nodeToAdd)
             else:
-                node.right = node
+                rNode.right = nodeToAdd
+                
+    def printTree(self):
+        if self.top is not None:
+            self.rPrintTree(self.top)
     
-    def printTree(self, node):
+    def rPrintTree(self, node):
         if node is not None:
-            self.printTree(node.left)
+            self.rPrintTree(node.left)
             print(str(node.data) + ' ')
-            self.printTree(node.right)
+            self.rPrintTree(node.right)
+       
+    def findInTree(self, val):
+        if self.top is not None:
+            return rFindInTree(self.top, val)
+    
+    def rFindInTree(self, rNode, val):
+        if rNode.data == val:
+            return true
+        self.rFindInTree(rNode.left, val)
+        self.rFindInTree(rNode.right, val)
+
+        return false
        
 ## main 
 #TODO This isn't working. Work on it more
@@ -49,6 +63,6 @@ bst.insert(Node(7))
 bst.insert(Node(1))
 bst.insert(Node(9))
 
-bst.printTree(bst.getTop())
-
-# print(bst.__repr__())
+bst.printTree()
+print(bst.findInTree(4))
+print(bst.findInTree(11))
